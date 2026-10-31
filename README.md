@@ -2,22 +2,30 @@
 
 [![Tests](https://github.com/sarthaksansar/money-tracker/actions/workflows/ci.yml/badge.svg)](https://github.com/sarthaksansar/money-tracker/actions/workflows/ci.yml)
 
-**Turns raw statements from four financial institutions into one private, offline report: where your money
-sits, where it went, and what looks wrong. An AI agent runs the monthly update, within rules that keep
-the human in charge.**
+**Your money lives in four places, and none of them can tell you what to do next. Money Tracker combines
+statements from a bank, a multi-currency account, a share broker and a super fund into one report that opens with
+what to act on. An AI agent runs the monthly update, and a person stays in charge of anything that matters.**
 
-[**Live demo**](https://sarthaksansar.github.io/money-tracker/) (built from generated fake data) ·
-[How it works](#how-it-works) · [Try it](#try-it)
+**[See the live demo](https://sarthaksansar.github.io/money-tracker/)** (fake data) ·
+[What it shows](#what-this-project-shows) · [How it works](#how-it-works) · [Try it](#try-it)
 
 ![Overview: what to focus on, quick checks and where your money sits](docs/screenshots/overview.png)
 
-## Why it exists
+## Why I built it
 
-My money is spread across a bank (CommBank), a multi-currency account (Wise), a share broker (CMC Invest) and a
-super fund (IOOF). Each exports a different format, the same dollar often appears in two of them, and none
-of them tells you whether a charge looks wrong. Budgeting apps want bank logins. This keeps statements on my
-machine, does the reconciliation in plain Python, and produces a single HTML file that loads nothing from the
-internet.
+My money is spread across CommBank, Wise, CMC Invest and IOOF. Each exports a different format, the same dollar
+often appears in two of them, and none of them tells you whether a charge looks wrong or what deserves attention.
+Many budgeting apps also ask you to connect your bank accounts. I wanted something that keeps statements in my own
+folder and gets the numbers right, then tells me the few things worth doing this month.
+
+## What this project shows
+
+- **Getting messy data right:** reconciling overlapping sources and file formats so each dollar is counted once.
+- **Putting an AI agent to work safely:** deciding what stays in deterministic code, what the agent handles, and
+  what always needs a person, then writing those limits down as rules it follows.
+- **Designing for a decision:** a report that leads with findings and next steps, with the detail one click away.
+- **Handling sensitive data with care:** personal details live outside the code, and an audit checks every public
+  release for them.
 
 ## Highlights
 
@@ -56,7 +64,7 @@ statements, copy it to `config.toml` (git-ignored) and fill in your folder, name
 
 ```mermaid
 flowchart LR
-    subgraph Sources["Statements (stay on your machine)"]
+    subgraph Sources["Statements (in your private folder)"]
         L[CommBank ledger CSV]
         P[CommBank PDFs]
         W[Wise PDF / XLSX / CSV]
@@ -139,6 +147,9 @@ anywhere but the private data folder.
 - Everything personal (names, recipients, folders, report wording) lives in `config.toml`, so the code and the
   report template contain nothing about any one person.
 - The report embeds its data and loads nothing from the internet.
+- The Python pipeline runs locally. The monthly update is the exception: the agent is Claude Code, so what it reads
+  while downloading files and investigating alerts is processed by that AI service. Skip the agent and nothing
+  needs to leave your machine.
 - Every screenshot here comes from `generate_sample.py`.
 
 ## Project layout
