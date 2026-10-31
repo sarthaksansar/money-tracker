@@ -1,0 +1,10 @@
+# Never save financial data, personal settings or generated reports in git history
+report.html
+*.csv
+!rules.example.csv
+config.toml
+known_gaps.md
+sample_data/
+.venv/
+__pycache__/
+.pytest_cache/

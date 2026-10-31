@@ -1,0 +1,44 @@
+# Settings for the fake sample data from generate_sample.py.
+# To use your own statements, copy this to config.toml (never committed) and edit it.
+
+# Folder holding ledger.csv and your statement downloads (its Statements subfolder is read too).
+data_dir = "sample_data"
+# Your keyword -> category overrides.
+rules_file = "rules.example.csv"
+
+# How your own name appears on transfers to Wise and to your CMC account.
+own_names = ["ALEX MORGAN"]
+
+[categories]
+# Money moving between your own accounts: left out of every total.
+excluded = ["Savings transfer"]
+# Counted as invested, not spent.
+investment = "Investments (CMC)"
+# Money coming back in these reduces what you spent there, instead of counting as income.
+netted = ["Shared with partner"]
+# Ledger categories shown under a different name.
+renamed = { "Transfers to people" = "Other people" }
+
+# Who you send money to through Wise, and what it counts as.
+[wise_recipients]
+"JORDAN MORGAN" = "Family support"
+"SAM MORGAN" = "Family support"
+"ALEX MORGAN" = "Sent to own overseas account"
+"TRANSFERWISE" = "Fees & interest"
+
+# The "money sent home" insight. An empty categories list turns it off.
+[sent_home]
+categories = ["Family support", "Sent to own overseas account"]
+label = "Money sent home"
+description = "Family support and transfers to your overseas account"
+
+# Wording in the report.
+[report]
+salary_note = "Salary usually lands around the 15th and the last day of the month."
+super_fund = "Balanced option"
+balances_note = "End-of-day balances."
+netted_note = "Money back from your partner reduces shared spending instead of counting as income."
+# Spending you can't easily change, for the "months of essentials" figure.
+essentials = ["Rent & housing", "Groceries", "Bills & utilities", "Transport", "Health & fitness"]
+# Things that need a human this month, shown near the top of the report. The monthly update refreshes these.
+to_check = ["Telstra: the latest bill is about $52 above usual. Check the plan or any extra charges."]

@@ -1,0 +1,3 @@
+# Only for generate_sample.py and the tests
+reportlab
+pytest
